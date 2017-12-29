@@ -38,8 +38,8 @@ def require():
         'current_year':config['year'],
         'current_term':config['term']
         })
-    rst = r.text.replace("/html", "")
-    rst = rst + "/html"
+    rst = r.text.replace("</html>", "")
+    rst = rst + "</html>"
     return rst
 
 def parse():

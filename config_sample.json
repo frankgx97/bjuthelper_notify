@@ -1,0 +1,9 @@
+{
+    "id": 15010101,
+    "password": "password",
+    "year": "2017-2018",
+    "term": 1,
+    "mail": "i@example.com",
+    "mail_from": "i@exmaple.com",
+    "mail_pass": "smtppass"
+}
