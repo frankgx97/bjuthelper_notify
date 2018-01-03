@@ -1,10 +1,10 @@
 #coding:utf8
+import datetime
+import json
+
 import requests
 from bs4 import BeautifulSoup
-import json
-from sender import Mail
-from sender import Message
-import datetime
+from sender import Mail, Message
 
 config = json.loads(open('config.json').read())
 
@@ -45,19 +45,19 @@ def require():
 def parse():
     soup = BeautifulSoup(require(), "lxml")
     rm = soup.findAll("div", id="average_score")
-    [i.extract() for i in rm]
+    #[i.extract() for i in rm]
     rm = soup.findAll("div", id="average_GPA")
-    [i.extract() for i in rm]
+    #[i.extract() for i in rm]
     grades = soup.findAll("div", class_="weui_cell_bd weui_cell_primary")
-    print len(grades)
-    if gfile() < len(grades):
+    print len(grades) - 5 
+    if gfile() < len(grades) - 5:
         try:
-            s = '<p>已出分科目：'+str(len(grades))+'</p><p>'
+            s = '<p>已出分科目：'+str(len(grades)-5)+'</p><p>'
             for i in grades:
                 s += i.get_text().encode('utf-8')
                 s += '</p><p>'
             s += 'At:'+str(datetime.datetime.now())+'</p>'
-            wfile(len(grades))
+            wfile(len(grades)-5)
             send_email(s)
         except Exception, e:
             send_email(e)
