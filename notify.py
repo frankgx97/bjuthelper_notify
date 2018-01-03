@@ -4,23 +4,18 @@ import json
 
 import requests
 from bs4 import BeautifulSoup
-from sender import Mail, Message
 
 config = json.loads(open('config.json').read())
 
 def send_email(msg):
-    mail_msg = Message('小伙子，又出分了！', fromaddr=config['mail_from'], to=config['mail'])
-    mail_msg.html = msg
-    mail = Mail(
-        "smtp.exmail.qq.com",
-        port=465,
-        username=config['mail_from'],
-        password=config['mail_pass'],
-        use_tls=False,
-        use_ssl=True,
-        debug_level=None
-        )
-    mail.send(mail_msg)
+    requests.post(config['mail_api'], json={
+        "mail_to":config['mail'],
+        "mail_title":'小伙子，又出分了！',
+        "mail_html":msg+'<hr>',
+        "key":config['key']
+    })
+    print 'mail sent'
+
 
 def wfile(content):
     f = open("t.txt", "w+")
