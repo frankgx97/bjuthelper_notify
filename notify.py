@@ -27,7 +27,7 @@ def gfile():
     return int(c)
 
 def require():
-    r = requests.post('https://chafen.bjut123.com/require_grade.php', data={
+    r = requests.post('http://bjut.guoduhao.cn/require_grade.php', data={
         'account':config['id'],
         'password':config['password'],
         'current_year':config['year'],
