@@ -8,13 +8,14 @@ from bs4 import BeautifulSoup
 config = json.loads(open('config.json').read())
 
 def send_email(msg):
-    requests.post(config['mail_api'], json={
+    result = requests.post(config['mail_api'], json={
         "mail_to":config['mail'],
         "mail_title":'小伙子，又出分了！',
         "mail_html":msg+'<hr>',
         "key":config['key']
     })
     print 'mail sent'
+    return result.text
 
 
 def wfile(content):
@@ -53,7 +54,7 @@ def parse():
                 s += '</p><p>'
             s += 'At:'+str(datetime.datetime.now())+'</p>'
             wfile(len(grades)-5)
-            send_email(s)
+            print send_email(s)
         except Exception, e:
             send_email(e)
 
