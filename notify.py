@@ -28,7 +28,7 @@ def gfile():
     return int(c)
 
 def require():
-    r = requests.post('http://bjut.guoduhao.cn/require_grade.php', data={
+    r = requests.post('https://bjut.guoduhao.cn/require_grade.php', data={
         'account':config['id'],
         'password':config['password'],
         'current_year':config['year'],
@@ -43,12 +43,16 @@ def parse():
     rm = soup.findAll("div", id="average_score")
     #[i.extract() for i in rm]
     rm = soup.findAll("div", id="average_GPA")
+    gpa = soup.findAll("div", class_="weui_accordion_title")
     #[i.extract() for i in rm]
     grades = soup.findAll("div", class_="weui_cell_bd weui_cell_primary")
-    print len(grades) - 5 
-    if gfile() < len(grades) - 5:
+    print len(grades) - 3
+    if gfile() < len(grades) - 3:
         try:
-            s = '<p>已出分科目：'+str(len(grades)-5)+'</p><p>'
+            s = '<p>'
+            for i in gpa:
+                s += i.get_text().encode('utf-8') 
+                s += '</p><p>'
             for i in grades:
                 s += i.get_text().encode('utf-8')
                 s += '</p><p>'
