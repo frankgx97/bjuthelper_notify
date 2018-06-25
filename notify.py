@@ -57,7 +57,7 @@ def parse():
                 s += i.get_text().encode('utf-8')
                 s += '</p><p>'
             s += 'At:'+str(datetime.datetime.now())+'</p>'
-            wfile(len(grades)-5)
+            wfile(len(grades)-3)
             print send_email(s)
         except Exception, e:
             send_email(e)
